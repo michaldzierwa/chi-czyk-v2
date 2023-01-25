@@ -1,0 +1,28 @@
+{% extends "base.htm" %}
+{% block body %}
+    <p>Kolej gracza: {{ game.players[game.active_player].color }}</p>
+    <p>Schowek gracza: </p>
+{#    {% for a in game.players[game.active_player].coins_storage %}#}
+{#    <p>{{ game.players[game.active_player].coins_storage[a].id }}</p>#}
+{#    {% endfor %}#}
+
+    <div style="display: flex; flex-direction: row;">
+    {% for x in range(40) %}
+        <div style="border:1px solid black; width: 50px;">
+        {{ game.board.list[x] }}
+        </div>
+    {% endfor %}
+    </div>
+{#    <table>#}
+{#        <tr>#}
+{#    {% for i in range(11) %}#}
+{#        {% for j in range(11) %}#}
+{#          <td>{{ game.board_for_jinja[i][j] }}</td>#}
+{#        {% endfor %}#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#    </table>#}
+
+{#    <a href="{{ url_for('roll_dice', game = game) }}" >Rzuć kostką</a>#}
+    <a href="{{ url_for('roll_dice') }}" >Rzuć kostką</a>
+{% endblock %}

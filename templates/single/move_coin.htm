@@ -1,0 +1,51 @@
+{% extends "base.htm" %}
+{% block body %}
+    <p>Kolej gracza: {{ game.players[game.active_player].color }}</p>
+    <p>Schowek gracza: </p>
+    {% for player in game.players %}
+        <h4>Player id: {{ player.id }}</h4>
+        {% for a in player.coins_storage %}
+            <p style="color: {{ a.color.lower() }};">{{ a }}</p>
+        {% endfor %}
+            {% if player.id == game.active_player %}
+                {% if throw_result == 6 and player.coins_storage|length %}
+                    <a href="{{ url_for("pop_coin_from_storage") }}">
+                        WYJDŻ Z DOMKU XDDDD })
+                    </a>
+                {% endif %}
+            {% endif %}
+    {% endfor %}
+
+
+{#    <p>Wynik rzutu: {{ throw_result }}</p>#}
+{#    <div style="display: flex; flex-direction: row;">#}
+{#    {% for x in range(40) %}#}
+{#        <div style="border:1px solid black; width: 50px;">#}
+{#        {{ game.board.list[x] }}#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#    </div>#}
+        <p>Wynik rzutu: {{ throw_result }}</p>
+    <div style="display: flex; flex-direction: row;">
+    {% for field, x in game.board.list|zip(range(40)) %}
+        <div style="border:1px solid black; width: 50px;">
+            {% if field in game.players[game.active_player].coins %}
+            <a href="{{ url_for('move', throw_result=throw_result, selected_coin=field, x=x) }}">
+                {{ field }}
+            </a>
+            {% else %}
+                {{ field }}
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <table>
+        <tr>
+    {% for i in range(11) %}
+        {% for j in range(11) %}
+          <td>{{ game.board_for_jinja[i][j] }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
